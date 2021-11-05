@@ -40,7 +40,7 @@ TEST(AddTest, AddStringifyZeroandPos) {
      EXPECT_TRUE(test->stringify() == "(0 + 8.9)");
 }
 
-T(AddTest, AddStringifyNeg) {
+TEST(AddTest, AddStringifyNeg) {
      Op* opTestOne = new Op(-14.8);
      Op* opTestTwo = new Op(1.7);
      Base* test = new Add(opTestOne, opTestTwo);
