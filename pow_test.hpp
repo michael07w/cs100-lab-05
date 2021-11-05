@@ -21,12 +21,12 @@ TEST(PowTest, PowEvaluateNegative) {
         try {
             test->evaluate();
         }
-        catch (const NegativeBase& e) {
+        catch (const NegBase& e) {
             // test that exception message is correct
             EXPECT_STREQ("Cannot use a negative base for pow!", e.what());
             throw;
         }
-     }, NegativeBase);
+     }, NegBase);
 }
 
 TEST(PowTest, PowEvaluateDoubleNegative) {

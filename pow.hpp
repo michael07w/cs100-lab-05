@@ -5,6 +5,12 @@
 #include <cmath>
 #include "base.hpp"
 
+struct NegBase : public std::exception {
+    const char* what() const throw() {
+	return "Cannot use a negative base for pow!";
+    }
+};
+
 class Pow : public Base {
     private:
         Base* left;
