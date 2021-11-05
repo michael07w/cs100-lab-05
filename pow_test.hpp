@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "op.hpp"
 #include "pow.hpp"
+#include <cmath>
 
 TEST(PowTest, PowEvaluateNonZero) {
     Base* opTestOne = new Op(1.5);
@@ -16,14 +17,33 @@ TEST(PowTest, PowEvaluateNegative) {
     Op* opTestOne = new Op(-2.6);
     Op* opTestTwo = new Op(5.4);
     Base* test = new Pow(opTestOne, opTestTwo);
-    EXPECT_DOUBLE_EQ(test->evaluate(), pow(-2.6, 5.4));
+    EXPECT_THROW({
+        try {
+            test->evaluate();
+        }
+        catch (const NegativeBase& e) {
+            // test that exception message is correct
+            EXPECT_STREQ("Cannot use a negative base for pow!", e.what());
+            throw;
+        }
+     }, NegativeBase);
 }
 
 TEST(PowTest, PowEvaluateDoubleNegative) {
     Op* opTestOne = new Op(-0.12);
     Op* opTestTwo = new Op(-10.12);
     Base* test = new Pow(opTestOne, opTestTwo);
-    EXPECT_DOUBLE_EQ(test->evaluate(), pow(-0.12, -10.12));
+
+    EXPECT_THROW({
+	try {
+	    test->evaluate();
+	}
+	catch (const NegBase& e) {
+	    // test that exception message is correct
+	    EXPECT_STREQ("Cannot use a negative base for pow!", e.what());
+	    throw;
+	 }
+    }, NegBase);
 }
 
 TEST(PowTest, PowEvaluateZero) {
