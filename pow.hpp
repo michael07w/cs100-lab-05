@@ -23,6 +23,9 @@ class Pow : public Base {
             result = 0;
         }
         virtual double evaluate() {
+	    if (left->evaluate() < 0) {
+               throw NegBase();
+            }
             result = pow(left->evaluate(), right->evaluate());
             return (result);
         }
